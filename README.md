@@ -2,6 +2,9 @@
 
 Комплект для мониторинга сервисов, защищенных Qrator Labs. Включает шаблон для **Zabbix 7.4** и готовый дашборд для **Grafana**.
 
+<img width="1576" height="793" alt="image" src="https://github.com/user-attachments/assets/dab665d9-5229-455a-8db6-80dbd0a33db2" />
+
+
 ## Состав репозитория
 
 1.  **`zabbox_template.yaml`**: Шаблон Zabbix для сбора метрик через API Qrator.
