@@ -1,0 +1,1264 @@
+zabbix_export:
+  version: '7.4'
+  template_groups:
+    - uuid: af36653e02304d2e8e3900010d9d20c2
+      name: 'Наши шаблоны'
+  templates:
+    - uuid: a2a565404fc540d8b5e86b8c025abcfd
+      template: 'API Qrator template'
+      name: 'API Qrator template'
+      groups:
+        - name: 'Наши шаблоны'
+      macros:
+        - macro: '{$QRATOR.AUTH_TOKEN}'
+          description: 'Qrator API Auth Token (X-Qrator-Auth header)'
+        - macro: '{$QRATOR.CLIENT_ID}'
+          description: 'Qrator Client ID (part of URL path)'
+      items:
+        - uuid: c826420c03be45afb984fd8d8a1929bc
+          name: '["all"]. Входящий трафик в bps, Total'
+          type: CALCULATED
+          key: bandwidth.input.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: bps
+          params: 'sum(last_foreach(//bandwidth.input[*]))'
+        - uuid: e853ca5f246b48028d6d1fe4f7a4ca30
+          name: '["all"]. Исходящий трафик в bps'
+          type: CALCULATED
+          key: bandwidth.output.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: bps
+          params: 'sum(last_foreach(//bandwidth.output[*]))'
+        - uuid: 5903fbc409de408384070892b7aaa581
+          name: '["all"]. Пропущенный трафик в bps'
+          type: CALCULATED
+          key: bandwidth.passed.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: bps
+          params: 'sum(last_foreach(//bandwidth.passed[*]))'
+        - uuid: 300e98cf63994a8cb6131ad27e89e848
+          name: '["all"]. Количество заблокированных ip по api'
+          type: CALCULATED
+          key: blacklist.api.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//blacklist.api[*]))'
+        - uuid: 4fd05cfca4b64d32bffdc4968db814f7
+          name: '["all"]. Количество заблокированных ip Qrator AntiDDoS L3-L7'
+          type: CALCULATED
+          key: blacklist.qrator.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//blacklist.qrator[*]))'
+        - uuid: fa1d302d52c84e99b7a107b38bbed7ab
+          name: '["all"]. Количество заблокированных ip WAF'
+          type: CALCULATED
+          key: blacklist.waf.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: pps
+          params: 'sum(last_foreach(//blacklist.waf[*]))'
+        - uuid: f3a61ade501f473ca3e842aab183fc7f
+          name: '["all"]. Блокировок не RU'
+          type: CALCULATED
+          key: blocks_not_ru
+          delay: 0;m/1
+          params: 'sum(last_foreach(//blocks_not_ru[*]))'
+        - uuid: fbde5cf3b4614c1395fc169521e088b7
+          name: '["all"]. Блокировок RU'
+          type: CALCULATED
+          key: blocks_ru
+          delay: 0;m/1
+          params: 'sum(last_foreach(//blocks_ru[*]))'
+        - uuid: 4853d684111e4892b97cf286428ac9dc
+          name: '["all"]. 4xx errors total'
+          type: CALCULATED
+          key: errors.4xx.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.4xx[*]))'
+        - uuid: ce24bfeebdda4d948816fe57f0dc51dd
+          name: '["all"]. 500 errors total'
+          type: CALCULATED
+          key: errors.500.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.500[*]))'
+        - uuid: d6d5984be2474256b8655cfd585adb6f
+          name: '["all"]. 501 errors total'
+          type: CALCULATED
+          key: errors.501.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.501[*]))'
+        - uuid: 79d85260a6e04c89afd573c4997a06f6
+          name: '["all"]. 502 errors total'
+          type: CALCULATED
+          key: errors.502.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.502[*]))'
+        - uuid: f9cb4639f5684a8aad87eddf448e0537
+          name: '["all"]. 503 errors total'
+          type: CALCULATED
+          key: errors.503.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.503[*]))'
+        - uuid: 6583eedab7474a998098dee04e164ff3
+          name: '["all"]. 504 errors total'
+          type: CALCULATED
+          key: errors.504.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.504[*]))'
+        - uuid: 827fc89534c5485693f470e841018cc7
+          name: '["all"]. Errors total'
+          type: CALCULATED
+          key: errors.total.all
+          delay: 0;m/1
+          value_type: FLOAT
+          params: 'sum(last_foreach(//errors.total[*]))'
+        - uuid: 8a1c516f68674411b3b34c4688abb801
+          name: '["all"]. Входящий трафик в pps'
+          type: CALCULATED
+          key: packets.input.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: pps
+          params: 'sum(last_foreach(//packets.input[*]))'
+        - uuid: 9aad9bdb51a7426eb5c6f44ebce6b4bb
+          name: '["all"]. Исходящий трафик в pps'
+          type: CALCULATED
+          key: packets.output.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: pps
+          params: 'sum(last_foreach(//packets.output[*]))'
+        - uuid: f2aee5a9b207498495eebccf2adc85d6
+          name: '["all"]. Пропущенный трафик в pps'
+          type: CALCULATED
+          key: packets.passed.all
+          delay: 0;m/1
+          units: pps
+          params: 'sum(last_foreach(//packets.passed[*]))'
+        - uuid: a6bbc23bcedf4efbbaa16af0fe121450
+          name: qrator_domains_get
+          type: HTTP_AGENT
+          key: qrator_domains_get
+          delay: 0;h/1
+          value_type: TEXT
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.result
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  try {
+                      // Парсим входящий JSON
+                      var data = JSON.parse(value);
+                  
+                      // Проходим по каждому элементу массива
+                      for (var i = 0; i < data.length; i++) {
+                          var item = data[i];
+                          var has443 = 0;
+                  
+                          // Проверяем, существует ли массив services
+                          if (item.services && Array.isArray(item.services)) {
+                              // Ищем хотя бы один сервис с портом 443
+                              for (var j = 0; j < item.services.length; j++) {
+                                  if (item.services[j].port === 443) {
+                                      has443 = 1;
+                                      break; // Если нашли, дальше искать не нужно
+                                  }
+                              }
+                          }
+                  
+                          // Добавляем новое поле
+                          item.have_443 = has443;
+                      }
+                  
+                      // Возвращаем измененный объект в виде строки JSON
+                      return JSON.stringify(data);
+                  } catch (e) {
+                      // В случае ошибки возвращаем оригинальное значение или сообщение об ошибке
+                      return 'Error processing JSON: ' + e.message;
+                  }
+          url: 'https://api.qrator.net/request/client/{$QRATOR.CLIENT_ID}'
+          post_type: JSON
+          posts: '{"method":"domains_get"}'
+          headers:
+            - name: Content-Type
+              value: application/json
+            - name: X-Qrator-Auth
+              value: '{$QRATOR.AUTH_TOKEN}'
+          request_method: POST
+          tags:
+            - tag: 'Get data'
+        - uuid: 7431633868794e7ebdd2f507db1d3d24
+          name: '["all"]. Total RPS'
+          type: CALCULATED
+          key: requests.all
+          delay: 0;m/1
+          value_type: FLOAT
+          units: rps
+          params: 'sum(last_foreach(//requests[*]))'
+        - uuid: 72790bdcddd54d7dbfcdc1477404dad6
+          name: statistics_current_http
+          type: HTTP_AGENT
+          key: statistics_current_http
+          delay: 0;m/1
+          value_type: TEXT
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.result
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  var result = [];
+                  
+                  // Проходим по всем ключам объекта (это наши ID)
+                  for (var id in data) {
+                      if (data.hasOwnProperty(id)) {
+                          // Берем объект метрик
+                          var metrics = data[id];
+                          
+                          // Добавляем ID внутрь объекта, чтобы он стал доступен как макрос
+                          metrics.id = id;
+                          
+                          // Кладем в итоговый массив
+                          result.push(metrics);
+                      }
+                  }
+                  
+                  return JSON.stringify(result);
+          url: 'https://api.qrator.net/request/client/{$QRATOR.CLIENT_ID}'
+          post_type: JSON
+          posts: '{"method":"statistics_current_http"}'
+          headers:
+            - name: Content-Type
+              value: application/json
+            - name: X-Qrator-Auth
+              value: '{$QRATOR.AUTH_TOKEN}'
+          request_method: POST
+          tags:
+            - tag: 'Get data'
+        - uuid: 91dca9c466b048609d12685fad476fe3
+          name: statistics_current_ip
+          type: HTTP_AGENT
+          key: statistics_current_ip
+          delay: 0;m/1
+          value_type: TEXT
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.result
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  var data = JSON.parse(value);
+                  var result = [];
+                  
+                  // Проходим по всем ключам объекта (это наши ID)
+                  for (var id in data) {
+                      if (data.hasOwnProperty(id)) {
+                          // Берем объект метрик
+                          var metrics = data[id];
+                          
+                          // Добавляем ID внутрь объекта, чтобы он стал доступен как макрос
+                          metrics.id = id;
+                          
+                          // Кладем в итоговый массив
+                          result.push(metrics);
+                      }
+                  }
+                  
+                  return JSON.stringify(result);
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  try {
+                      var data = JSON.parse(value);
+                  
+                      if (!Array.isArray(data)) {
+                          throw new Error("Input is not an array");
+                      }
+                  
+                      data.forEach(function(item) {
+                          // Обработка секции packets
+                          if (item.packets && typeof item.packets === 'object') {
+                              var p_passed = item.packets.passed;
+                              var p_input = item.packets.input;
+                              
+                              // Проверка на деление на ноль
+                              if (p_passed && p_passed !== 0) {
+                                  item.packets.diff = p_input / p_passed;
+                              } else {
+                                  item.packets.diff = 0;
+                              }
+                          }
+                  
+                          // Обработка секции bandwidth
+                          if (item.bandwidth && typeof item.bandwidth === 'object') {
+                              var b_passed = item.bandwidth.passed;
+                              var b_input = item.bandwidth.input;
+                  
+                              // Проверка на деление на ноль
+                              if (b_passed && b_passed !== 0) {
+                                  item.bandwidth.diff = b_input / b_passed;
+                              } else {
+                                  item.bandwidth.diff = 0;
+                              }
+                          }
+                      });
+                  
+                      return JSON.stringify(data);
+                  } catch (error) {
+                      throw new Error("JS preprocessing failed: " + error.message);
+                  }
+          url: 'https://api.qrator.net/request/client/{$QRATOR.CLIENT_ID}'
+          post_type: JSON
+          posts: '{"method":"statistics_current_ip"}'
+          headers:
+            - name: Content-Type
+              value: application/json
+            - name: X-Qrator-Auth
+              value: '{$QRATOR.AUTH_TOKEN}'
+          request_method: POST
+          tags:
+            - tag: 'Get data'
+        - uuid: f36975d20c3c488e8370a35af733275d
+          name: statistics_current_locations
+          type: HTTP_AGENT
+          key: statistics_current_locations
+          delay: 0;m/1
+          value_type: TEXT
+          preprocessing:
+            - type: JAVASCRIPT
+              parameters:
+                - |
+                  try {
+                      var data = JSON.parse(value);
+                      var lld = [];
+                  
+                      // Проверяем, есть ли result
+                      if (data && data.result) {
+                          // Перебираем все сервисы (ID)
+                          for (var serviceId in data.result) {
+                              if (data.result.hasOwnProperty(serviceId)) {
+                                  var serviceData = data.result[serviceId];
+                                  
+                                  var ruCount = 0;
+                                  var notRuCount = 0;
+                                  
+                                  // Проверяем наличие объекта locations
+                                  if (serviceData && serviceData.locations) {
+                                      var locs = serviceData.locations;
+                                      
+                                      // Перебираем локации, если они есть
+                                      for (var locCode in locs) {
+                                          if (locs.hasOwnProperty(locCode)) {
+                                              var count = Number(locs[locCode]);
+                                              
+                                              // Суммируем RU и остальные
+                                              if (locCode.toUpperCase() === 'RU') {
+                                                  ruCount += count;
+                                              } else {
+                                                  notRuCount += count;
+                                              }
+                                          }
+                                      }
+                                  }
+                                  
+                                  // Округляем ВВЕРХ до целого (Math.ceil)
+                                  // Если было 0.1 -> станет 1
+                                  // Если было 0 -> останется 0 (так как ceil(0) = 0)
+                                  var finalRu = Math.ceil(ruCount);
+                                  var finalNotRu = Math.ceil(notRuCount);
+                  
+                                  // Добавляем в вывод
+                                  lld.push({
+                                      "id": serviceId,
+                                      "ru_count": String(finalRu),
+                                      "not_ru_count": String(finalNotRu)
+                                  });
+                              }
+                          }
+                      }
+                  
+                      return JSON.stringify({"data": lld});
+                  } catch (error) {
+                      throw new Error("JS preprocessing failed: " + error.message);
+                  }
+            - type: JSONPATH
+              parameters:
+                - $.data
+          url: 'https://api.qrator.net/request/client/{$QRATOR.CLIENT_ID}'
+          post_type: JSON
+          posts: '{"method":"statistics_current_locations"}'
+          headers:
+            - name: Content-Type
+              value: application/json
+            - name: X-Qrator-Auth
+              value: '{$QRATOR.AUTH_TOKEN}'
+          request_method: POST
+          tags:
+            - tag: 'Get data'
+        - uuid: 838b9eceb5244e64b0bf762293d21ef8
+          name: 'statistics_current_locations TEST'
+          type: HTTP_AGENT
+          key: statistics_current_locations_TEST
+          delay: 0;m/1
+          value_type: TEXT
+          url: 'https://api.qrator.net/request/client/{$QRATOR.CLIENT_ID}'
+          post_type: JSON
+          posts: '{"method":"statistics_current_locations"}'
+          headers:
+            - name: Content-Type
+              value: application/json
+            - name: X-Qrator-Auth
+              value: '{$QRATOR.AUTH_TOKEN}'
+          request_method: POST
+          tags:
+            - tag: 'Get data'
+      discovery_rules:
+        - uuid: 3465cfe4851e4282b0959eff7bc82483
+          name: 'API Qrator discovery'
+          type: DEPENDENT
+          key: API_Qrator_discovery
+          item_prototypes:
+            - uuid: 4e91b061d9244ab986c1289007f304d6
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Входящий трафик в bps, Total'
+              type: DEPENDENT
+              key: 'bandwidth.input[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: bps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].bandwidth.input'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: 3b2fc888ba8747e1b9c496ea74d7b903
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Входящий/Пропущенный в bps'
+              type: DEPENDENT
+              key: 'bandwidth.input_passed[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].bandwidth.diff'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: d83caff1557a41b8b5a803e128f229bb
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Исходящий трафик в bps'
+              type: DEPENDENT
+              key: 'bandwidth.output[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: bps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].bandwidth.output'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: 4569bf601da249feaa15ae85edccbd6a
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Пропущенный трафик в bps'
+              type: DEPENDENT
+              key: 'bandwidth.passed[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: bps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].bandwidth.passed'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: af66054153f64820b25ce22a66c39860
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip по api'
+              type: DEPENDENT
+              key: 'blacklist.api[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].blacklist.api'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Blocks
+            - uuid: dd993edeb75b465882343d22bed6215a
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip Qrator AntiDDoS L3-L7'
+              type: DEPENDENT
+              key: 'blacklist.qrator[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].blacklist.qrator'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Blocks
+            - uuid: d93d2d62541d4cf5b924caf191cc31cb
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip WAF'
+              type: DEPENDENT
+              key: 'blacklist.waf[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].blacklist.waf'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Blocks
+            - uuid: 61c0ffe860ce40338df47ee5d42bec0f
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Блокировок не RU'
+              type: DEPENDENT
+              key: 'blocks_not_ru[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].not_ru_count'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_locations
+              tags:
+                - tag: Blocks
+            - uuid: 09cd3f89016c45daa1f3ed37bd818f78
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Блокировок RU'
+              type: DEPENDENT
+              key: 'blocks_ru[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].ru_count'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_locations
+              tags:
+                - tag: Blocks
+              trigger_prototypes:
+                - uuid: 46f9f7af9d9840dbadf4689ec2d48fc5
+                  expression: |
+                    last(/API Qrator template/blocks_ru[{#QRATOR.ID}])>=1
+                    and
+                    time()>=080000
+                    and
+                    time()<=190000
+                  recovery_mode: RECOVERY_EXPRESSION
+                  recovery_expression: |
+                    last(/API Qrator template/blocks_ru[{#QRATOR.ID}])<=1
+                    and
+                    time()>=080000
+                    and
+                    time()<=190000
+                  name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных адресов RU >= 1'
+                  opdata: 'Количество заблокированных адресов RU = {ITEM.LASTVALUE1}'
+                  priority: WARNING
+                  description: |
+                    Назначение:
+                    Отслеживание FP блокировок
+                    
+                    Реагирование:
+                    Уточнить причины блокировки в Qrator, определить является ли FP. В случае FP - просим Qrator разблокировать адрес и произвести тюнинг правил для исключения повторных FP блокировок
+                  tags:
+                    - tag: Qrator
+            - uuid: 332b23f9dfd1426c90be1c8bc2e59513
+              name: '{#QRATOR.NAME} - {#QRATOR.IP} diff bps'
+              type: CALCULATED
+              key: 'diff_bps[{#QRATOR.ID}]'
+              delay: 0;m/1
+              value_type: FLOAT
+              params: |
+                last(//bandwidth.input[{#QRATOR.ID}])/
+                last(//bandwidth.passed[{#QRATOR.ID}])
+            - uuid: 41cd8b8be36942388811fcedbcfe3a5a
+              name: '{#QRATOR.NAME} - {#QRATOR.IP} diff pps'
+              type: CALCULATED
+              key: 'diff_packets[{#QRATOR.ID}]'
+              delay: 0;m/1
+              value_type: FLOAT
+              params: |
+                last(//bandwidth.input[{#QRATOR.ID}])/
+                last(//bandwidth.passed[{#QRATOR.ID}])
+            - uuid: 0854d3227713495b91787da75bdf9ce7
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. 4xx errors total'
+              type: DEPENDENT
+              key: 'errors.4xx[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.4xx'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: faffd64c588d4b73b178ef68a4cf10d6
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. 500 errors total'
+              type: DEPENDENT
+              key: 'errors.500[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.500'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: b379bae2785441feaaf8f8a6286707ac
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. 501 errors total'
+              type: DEPENDENT
+              key: 'errors.501[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.501'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: 060a680dd10b4711a360fa256b81f4ed
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. 502 errors total'
+              type: DEPENDENT
+              key: 'errors.502[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.502'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: db6b000e5c8049229acba2bf7cac3053
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. 503 errors total'
+              type: DEPENDENT
+              key: 'errors.503[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.503'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: fb1a51a25deb4b5ebee889926635f049
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. 504 errors total'
+              type: DEPENDENT
+              key: 'errors.504[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.504'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: 328c46772df6477c93aeac4a0892455d
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Errors total'
+              type: DEPENDENT
+              key: 'errors.total[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].errors.total'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Errors
+            - uuid: fdf6501776494c7bbe05c0e362e2af69
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. have_443'
+              type: DEPENDENT
+              key: 'have_443[{#QRATOR.ID}]'
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$..[?(@.id == {#QRATOR.ID})].have_443'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: qrator_domains_get
+              tags:
+                - tag: Common
+            - uuid: 00d3af33fb4e44da8604f46ae7835d27
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. id'
+              type: DEPENDENT
+              key: 'id[{#QRATOR.ID}]'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$..[?(@.id == {#QRATOR.ID})].id'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: qrator_domains_get
+              tags:
+                - tag: Common
+            - uuid: af5aebaef2cd4afc83a3d1ce5982b7f6
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Публичный ip адрес'
+              type: DEPENDENT
+              key: 'ip[{#QRATOR.ID}]'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$..[?(@.id == {#QRATOR.ID})].ip'
+                - type: JAVASCRIPT
+                  parameters:
+                    - |
+                      // value приходит как строка '["85.112.98.128","85.112.98.129"]'
+                      var arr = JSON.parse(value);
+                      return arr.join(', ');
+              master_item:
+                key: qrator_domains_get
+              tags:
+                - tag: Common
+            - uuid: 19f96bd5486f42fdae89c477e20f3857
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Имя сервиса'
+              type: DEPENDENT
+              key: 'name[{#QRATOR.ID}]'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$..[?(@.id == {#QRATOR.ID})].name'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: qrator_domains_get
+              tags:
+                - tag: Common
+            - uuid: 291ecddd5dcf43f1a77c620f161a6a61
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Входящий трафик в pps'
+              type: DEPENDENT
+              key: 'packets.input[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: pps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].packets.input'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: 181dbe7c01444a54989642bb45bfd373
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Входящий/Пропущенный в pps'
+              type: DEPENDENT
+              key: 'packets.input_passed[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].packets.diff'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: 8d7c8084b6664a328c0643f54ba4bd8c
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Исходящий трафик в pps'
+              type: DEPENDENT
+              key: 'packets.output[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: pps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].packets.output'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: 0fefc3f1925f4a23bdd0659ca3f2f6bf
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Пропущенный трафик в pps'
+              type: DEPENDENT
+              key: 'packets.passed[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: pps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].packets.passed'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+            - uuid: 64f84bb0693d45d9a67ed42aacd72b5c
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Total RPS'
+              type: DEPENDENT
+              key: 'requests[{#QRATOR.ID}]'
+              value_type: FLOAT
+              trends: '0'
+              units: rps
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].requests'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_http
+              tags:
+                - tag: Trafic
+            - uuid: fac7d419154f4c7ab4f6080ff312dea4
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. services'
+              type: DEPENDENT
+              key: 'services[{#QRATOR.ID}]'
+              value_type: TEXT
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$..[?(@.id == {#QRATOR.ID})].services'
+                - type: REGEX
+                  parameters:
+                    - '^\[\[(.*)\]\]$'
+                    - '[\1]'
+              master_item:
+                key: qrator_domains_get
+              tags:
+                - tag: Common
+            - uuid: 58f0245442504a18ab55f8dd9452bfdc
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Время, на которое актуальны показатели'
+              type: DEPENDENT
+              key: 'time[{#QRATOR.ID}]'
+              trends: '0'
+              units: unixtime
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - '$[?(@.id == ''{#QRATOR.ID}'')].time'
+                - type: LTRIM
+                  parameters:
+                    - '["'
+                - type: RTRIM
+                  parameters:
+                    - '"]'
+              master_item:
+                key: statistics_current_ip
+              tags:
+                - tag: Trafic
+          trigger_prototypes:
+            - uuid: c6cbfef744004658a34ab8d4ac553cc1
+              expression: |
+                last(/API Qrator template/bandwidth.input_passed[{#QRATOR.ID}])
+                >=2
+                and
+                last(/API Qrator template/bandwidth.passed[{#QRATOR.ID}])
+                >=2000000
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (bps) x2 пропущенного'
+              opdata: 'Входящий / пропущенный = {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                Возможен DDoS
+                
+                Реагирование:
+                Уточнить влияние
+              dependencies:
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (bps) x5 пропущенного'
+                  expression: |
+                    last(/API Qrator template/bandwidth.input_passed[{#QRATOR.ID}])
+                    >=5
+                    and
+                    last(/API Qrator template/bandwidth.passed[{#QRATOR.ID}])
+                    >=2000000
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (bps) x10 пропущенного'
+                  expression: |
+                    last(/API Qrator template/bandwidth.input_passed[{#QRATOR.ID}])
+                    >=10
+                    and
+                    last(/API Qrator template/bandwidth.passed[{#QRATOR.ID}])
+                    >=2000000
+              tags:
+                - tag: Qrator
+            - uuid: 6be18be4033c40b3bcc243004ea88095
+              expression: |
+                last(/API Qrator template/bandwidth.input_passed[{#QRATOR.ID}])
+                >=5
+                and
+                last(/API Qrator template/bandwidth.passed[{#QRATOR.ID}])
+                >=2000000
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (bps) x5 пропущенного'
+              opdata: 'Входящий / пропущенный = {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                С большой долей вероятности DDoS
+                
+                Реагирование:
+                Уточнить влияния на сервис. Уточнить в Qrator причины отклонения, характер атаки. При наличии влияния - обращение в Qrator для принятия мер
+              dependencies:
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (bps) x10 пропущенного'
+                  expression: |
+                    last(/API Qrator template/bandwidth.input_passed[{#QRATOR.ID}])
+                    >=10
+                    and
+                    last(/API Qrator template/bandwidth.passed[{#QRATOR.ID}])
+                    >=2000000
+              tags:
+                - tag: Qrator
+            - uuid: 3542ca0568674f7194bb263e11320966
+              expression: |
+                last(/API Qrator template/bandwidth.input_passed[{#QRATOR.ID}])
+                >=10
+                and
+                last(/API Qrator template/bandwidth.passed[{#QRATOR.ID}])
+                >=2000000
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (bps) x10 пропущенного'
+              opdata: 'Входящий / пропущенный = {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                big badaboom (DDoS)
+                
+                Реагирование:
+                Уточнить влияния на сервис. Уточнить в Qrator причины отклонения, характер атаки. При наличии влияния - обращение в Qrator для принятия мер
+              tags:
+                - tag: Qrator
+            - uuid: f6666922881349b9a9c7f2d3fc4ea61a
+              expression: |
+                last(/API Qrator template/packets.input_passed[{#QRATOR.ID}])
+                >=2
+                and
+                last(/API Qrator template/packets.passed[{#QRATOR.ID}])
+                >=1000
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (pps) x2 пропущенного'
+              opdata: 'Входящий / пропущенный = {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                Возможен DDoS
+                
+                Реагирование:
+                Уточнить влияние
+              dependencies:
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (pps) x5 пропущенного'
+                  expression: |
+                    last(/API Qrator template/packets.input_passed[{#QRATOR.ID}])
+                    >=5
+                    and
+                    last(/API Qrator template/packets.passed[{#QRATOR.ID}])
+                    >=1000
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (pps) x10 пропущенного'
+                  expression: |
+                    last(/API Qrator template/packets.input_passed[{#QRATOR.ID}])
+                    >=10
+                    and
+                    last(/API Qrator template/packets.passed[{#QRATOR.ID}])
+                    >=1000
+              tags:
+                - tag: Qrator
+            - uuid: 69e5422e2b3e4d3eaa0f037717db911d
+              expression: |
+                last(/API Qrator template/packets.input_passed[{#QRATOR.ID}])
+                >=5
+                and
+                last(/API Qrator template/packets.passed[{#QRATOR.ID}])
+                >=1000
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (pps) x5 пропущенного'
+              opdata: 'Входящий / пропущенный = {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                С большой долей вероятности DDoS
+                
+                Реагирование:
+                Уточнить влияния на сервис. Уточнить в Qrator причины отклонения, характер атаки. При наличии влияния - обращение в Qrator для принятия мер
+              dependencies:
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (pps) x10 пропущенного'
+                  expression: |
+                    last(/API Qrator template/packets.input_passed[{#QRATOR.ID}])
+                    >=10
+                    and
+                    last(/API Qrator template/packets.passed[{#QRATOR.ID}])
+                    >=1000
+              tags:
+                - tag: Qrator
+            - uuid: f4f90edc84d1438c9e41c09e0fe6b0ce
+              expression: |
+                last(/API Qrator template/packets.input_passed[{#QRATOR.ID}])
+                >=10
+                and
+                last(/API Qrator template/packets.passed[{#QRATOR.ID}])
+                >=1000
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество входящего трафика (pps) x10 пропущенного'
+              opdata: 'Входящий / пропущенный = {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                big badaboom (DDoS)
+                
+                Реагирование:
+                Уточнить влияния на сервис. Уточнить в Qrator причины отклонения, характер атаки. При наличии влияния - обращение в Qrator для принятия мер
+              tags:
+                - tag: Qrator
+            - uuid: 12842ec9f167428a94f778b64f218244
+              expression: |
+                (last(/API Qrator template/blacklist.api[{#QRATOR.ID}])+
+                last(/API Qrator template/blacklist.waf[{#QRATOR.ID}])+
+                last(/API Qrator template/blacklist.qrator[{#QRATOR.ID}]))
+                >=10
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip >= 10'
+              opdata: 'Блокировки: API - {ITEM.LASTVALUE1}. WAF - {ITEM.LASTVALUE2}. Qrator - {ITEM.LASTVALUE3}'
+              priority: WARNING
+              description: |
+                Назначение:
+                Возможен DDoS
+                
+                Реагирование:
+                Уточнить страну src в ЛК Qrator. Если РФ - возможно FP блокировка, обратиться в Qrator о причинах блокировки.
+                
+                Комментарий:
+                Проблема - адреса метаскана попадают также в список заблокированных, хотя фактически не блокируются. Тикет в Qrator https://client.curator.pro/ticket/item/81188/
+              dependencies:
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip >= 50'
+                  expression: |
+                    (last(/API Qrator template/blacklist.api[{#QRATOR.ID}])+
+                    last(/API Qrator template/blacklist.waf[{#QRATOR.ID}])+
+                    last(/API Qrator template/blacklist.qrator[{#QRATOR.ID}]))
+                    >=50
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip >= 100'
+                  expression: |
+                    (last(/API Qrator template/blacklist.api[{#QRATOR.ID}])+
+                    last(/API Qrator template/blacklist.waf[{#QRATOR.ID}])+
+                    last(/API Qrator template/blacklist.qrator[{#QRATOR.ID}]))
+                    >=50
+              tags:
+                - tag: Qrator
+            - uuid: 7cd9be352d1a453ca6ea8ff362e39f58
+              expression: |
+                (last(/API Qrator template/blacklist.api[{#QRATOR.ID}])+
+                last(/API Qrator template/blacklist.waf[{#QRATOR.ID}])+
+                last(/API Qrator template/blacklist.qrator[{#QRATOR.ID}]))
+                >=50
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip >= 50'
+              opdata: 'Блокировки: API - {ITEM.LASTVALUE1}. WAF - {ITEM.LASTVALUE2}. Qrator - {ITEM.LASTVALUE3}'
+              priority: WARNING
+              description: |
+                Назначение:
+                С большой долей вероятности DDoS
+                
+                Реагирование:
+                Уточнить страну src в ЛК Qrator. Уточнить влияния на сервис. Уточнить в Qrator причины блокировки. При наличии влияния - обратиться в Qrator для принятия дополнительных мер
+              dependencies:
+                - name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip >= 100'
+                  expression: |
+                    (last(/API Qrator template/blacklist.api[{#QRATOR.ID}])+
+                    last(/API Qrator template/blacklist.waf[{#QRATOR.ID}])+
+                    last(/API Qrator template/blacklist.qrator[{#QRATOR.ID}]))
+                    >=50
+              tags:
+                - tag: Qrator
+            - uuid: 0369b9dcaaca411d8db84264b6a151c3
+              expression: |
+                (last(/API Qrator template/blacklist.api[{#QRATOR.ID}])+
+                last(/API Qrator template/blacklist.waf[{#QRATOR.ID}])+
+                last(/API Qrator template/blacklist.qrator[{#QRATOR.ID}]))
+                >=50
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Количество заблокированных ip >= 100'
+              opdata: 'Блокировки: API - {ITEM.LASTVALUE1}. WAF - {ITEM.LASTVALUE2}. Qrator - {ITEM.LASTVALUE3}'
+              priority: WARNING
+              description: |
+                Назначение:
+                big badaboom (DDoS)
+                
+                Реагирование:
+                Уточнить страну src в ЛК Qrator. Уточнить влияния на сервис. Уточнить в Qrator причины блокировки
+              tags:
+                - tag: Qrator
+            - uuid: 5562937e46404607a01771dd96c59fcd
+              expression: |
+                max(/API Qrator template/requests[{#QRATOR.ID}],12h)=0
+                and
+                last(/API Qrator template/have_443[{#QRATOR.ID}])=1
+              name: '{#QRATOR.NAME} - {#QRATOR.IP}. Отсутствует трафик L7 в Qrator'
+              opdata: 'Текущий RPS: {ITEM.LASTVALUE1}'
+              priority: WARNING
+              description: |
+                Назначение:
+                Health-check отправки логов сервиса в Qrator
+                
+                Реагирование:
+                Провести диагностику Rsyslog, в случае отсутствия трафика не на нем - уточнить у владельцев сервиса причины отсутствия трафика
+              tags:
+                - tag: Qrator
+          master_item:
+            key: qrator_domains_get
+          lld_macro_paths:
+            - lld_macro: '{#QRATOR.ID}'
+              path: $.id
+            - lld_macro: '{#QRATOR.IP}'
+              path: $.ip
+            - lld_macro: '{#QRATOR.NAME}'
+              path: $.name
